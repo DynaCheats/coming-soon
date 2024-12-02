@@ -1,11 +1,71 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import { CountdownTimer } from "@/components/countdown-timer";
+import AnimatedGradientText from '@/components/ui/animated-gradient-text';
+import { buttonVariants } from '@/components/ui/button';
+import { GridPattern } from '@/components/ui/grid-pattern';
+import Particles from '@/components/ui/particles';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { cn } from '@/lib/utils';
+import '@/styles/globals.css';
+import { ChevronRight } from "lucide-react";
+import { FaDiscord, FaTelegram } from "react-icons/fa6";
+import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout>
-	<Welcome />
+  <main class="h-screen overflow-hidden bg-gradient-to-b from-black via-blue-950/20 to-black">
+    <div class="relative h-full">
+      <GridPattern
+        width={70}
+        height={70}
+        x={-1}
+        y={-1}
+        className={cn(
+          "[mask-image:linear-gradient(to_bottom,white,transparent,transparent)]",
+        )}
+      />
+
+      <div class="relative max-w-5xl mx-auto px-6 py-24 md:py-32 space-y-16 text-center h-full flex flex-col justify-center">
+        <header class="space-y-6">
+          <AnimatedGradientText className="hover:cursor-pointer">
+            🎉 <hr class="mx-2 h-4 w-px shrink-0 bg-gray-300" />{" "}
+            <span
+              class={cn(
+                `inline animate-gradient bg-gradient-to-r from-dynacheats to-[#00d6ff] bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent`,
+              )}
+            >
+              Introducing DynaCheats
+            </span>
+            <ChevronRight className="ml-1 size-3 text-white transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+          </AnimatedGradientText>
+
+          <!-- <h1 class="text-4xl md:text-6xl tracking-tight font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#b0f0ff] to-dynacheats">
+            DynaCheats is Coming Soon
+          </h1> -->
+
+          <h1 class="py-6 text-5xl leading-none tracking-tighter text-transparent sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-[#b0f0ff] to-dynacheats bg-clip-text">
+            DynaCheats is Coming Soon
+          </h1>
+
+          <p class="text-lg text-blue-200/70 max-w-2xl mx-auto">
+            We're working hard to bring you something amazing<br />
+            Stay tuned!
+          </p>
+        </header>
+
+        <CountdownTimer client:load />
+
+        <div class="flex justify-center space-x-4 mt-8">
+          <a href="https://discord.gg/dynacheats" target="_blank" class={buttonVariants({ variant: 'discord' })}>
+            <FaDiscord />
+            Discord
+          </a>
+          <a href="https://t.me/dynacheats" target="_blank" class={buttonVariants({ variant: 'telegram' })}>
+            <FaTelegram />
+            Telegram
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
 </Layout>
